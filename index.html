@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f2">
+  <title>어서오세요</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      background: #f4f6f2;
+      color: #263126;
+      font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+    main {
+      width: min(100%, 460px);
+      padding: 48px 40px;
+      text-align: center;
+      background: #fff;
+      border: 1px solid #e4e9e1;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px #293a2412;
+    }
+    .mark {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: #55734e;
+      color: #fff;
+      font-size: 26px;
+    }
+    h1 { margin: 0; font-size: clamp(30px, 7vw, 40px); letter-spacing: -.06em; }
+    .intro { margin: 14px 0 30px; color: #727b70; line-height: 1.7; }
+    label { display: block; margin-bottom: 9px; text-align: left; font-size: 14px; font-weight: 700; }
+    .controls { display: flex; gap: 10px; }
+    input {
+      min-width: 0;
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #d9dfd5;
+      border-radius: 11px;
+      font: inherit;
+      outline: none;
+    }
+    input:focus { border-color: #66845e; box-shadow: 0 0 0 3px #66845e22; }
+    button {
+      padding: 0 18px;
+      border: 0;
+      border-radius: 11px;
+      background: #55734e;
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button:hover { background: #405c39; }
+    #greeting { margin: 24px 0 0; color: #405c39; font-size: 20px; font-weight: 700; }
+    #greeting:empty { display: none; }
+    @media (max-width: 400px) {
+      main { padding: 40px 24px; }
+      .controls { flex-direction: column; }
+      button { min-height: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">✦</div>
+    <h1>반가워요!</h1>
+    <p class="intro">이름을 입력하면 환영 인사를 보여드릴게요.</p>
+    <form id="welcome-form">
+      <label for="name">이름</label>
+      <div class="controls">
+        <input id="name" name="name" type="text" placeholder="이름을 입력해 주세요" autocomplete="name" required>
+        <button type="submit">확인</button>
+      </div>
+    </form>
+    <p id="greeting" role="status" aria-live="polite"></p>
+  </main>
+  <script>
+    const form = document.querySelector('#welcome-form');
+    const nameInput = document.querySelector('#name');
+    const greeting = document.querySelector('#greeting');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = nameInput.value.trim();
+      if (name) greeting.textContent = `${name} 님 어서오세요`;
+    });
+  </script>
+</body>
+</html>
